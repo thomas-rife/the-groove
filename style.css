@@ -1,0 +1,165 @@
+/* Global resets */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  overflow: hidden;
+  transition: background 0.5s ease;
+  height: 100vh;
+  width: 100vw;
+}
+
+#carousel-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+/* Carousel Styles */
+#carousel {
+  display: flex;
+  align-items: center; /* Vertically center the cards */
+  /* Add horizontal padding so that the first and last cards can center */
+  padding: 0 calc((100vw - 300px) / 2);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  height: 100%;
+  width: 100%;
+  gap: 30px;
+}
+
+#carousel::-webkit-scrollbar {
+  display: none;
+}
+
+#carousel {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.event-card {
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+  width: 300px;
+  height: calc(300px * 16 / 9);
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s;
+  position: relative;
+}
+
+.event-card.active {
+  transform: scale(1.05);
+}
+
+/* Info Overlay Styles */
+#info-overlay {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #fff;
+  pointer-events: none;
+}
+
+#info-overlay .event-info h2 {
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+}
+
+#info-overlay .event-info p {
+  font-size: 1rem;
+}
+
+/* Button to open the side menu */
+#info-overlay .event-info button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  pointer-events: auto;
+}
+
+#carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.dot.active {
+  background: #fff;
+}
+
+/* Side Menu Styles */
+#side-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100%;
+  background: #fff;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+  padding: 20px;
+}
+
+/* When .open is added, slide the menu into view */
+#side-menu.open {
+  transform: translateX(0);
+}
+
+#side-menu .side-menu-header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#side-menu #close-side-menu {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+#side-menu .side-menu-content {
+  margin-top: 20px;
+}
+
+#side-menu .side-menu-content p {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+#buy-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: #ff5f6d;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}

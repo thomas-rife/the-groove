@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Carousel</title>
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="carousel-container">
+      <div id="carousel">
+        <!-- Cards will be injected by JavaScript -->
+      </div>
+      <div id="info-overlay">
+        <div class="event-info">
+          <h2 id="event-title"></h2>
+          <p id="event-description"></p>
+          <!-- Button to open the side menu -->
+          <button id="open-side-menu">Details</button>
+        </div>
+        <div id="carousel-dots">
+          <!-- Dot indicators -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Side menu for event details -->
+    <div id="side-menu">
+      <div class="side-menu-header">
+        <button id="close-side-menu">&times;</button>
+      </div>
+      <div class="side-menu-content">
+        <p id="event-date"></p>
+        <p id="event-time"></p>
+        <p id="event-location"></p>
+        <button id="buy-button">Buy Tickets</button>
+      </div>
+    </div>
+
+    <script>
+      // Sample event data
+      const events = [
+        {
+          title: "Live Music Concert",
+          description:
+            "Experience an unforgettable evening with live bands performing your favorite tunes.",
+          primaryColor: "#FF5F6D",
+          secondaryColor: "#FFC371",
+          date: "March 15, 2025",
+          time: "8:00 PM",
+          location: "Madison Square Garden, New York",
+          buyUrl: "https://buytickets.com/event1",
+        },
+        {
+          title: "Art Exhibition",
+          description:
+            "Dive into the world of modern art and enjoy breathtaking exhibitions.",
+          primaryColor: "#36D1DC",
+          secondaryColor: "#5B86E5",
+          date: "April 10, 2025",
+          time: "10:00 AM",
+          location: "The Art Gallery, San Francisco",
+          buyUrl: "https://buytickets.com/event2",
+        },
+        {
+          title: "Tech Conference",
+          description:
+            "Join industry leaders and tech enthusiasts for a day of innovation and networking.",
+          primaryColor: "#11998E",
+          secondaryColor: "#38EF7D",
+          date: "May 22, 2025",
+          time: "9:00 AM",
+          location: "Silicon Valley Convention Center",
+          buyUrl: "https://buytickets.com/event3",
+        },
+        {
+          title: "Culinary Workshop",
+          description:
+            "Discover gourmet recipes and learn cooking secrets from renowned chefs.",
+          primaryColor: "#F7971E",
+          secondaryColor: "#FFD200",
+          date: "June 5, 2025",
+          time: "6:00 PM",
+          location: "Culinary Institute, Chicago",
+          buyUrl: "https://buytickets.com/event4",
+        },
+      ];
+
+      /**
+       * Utility function that darkens a hex color.
+       * @param {string} hex - A hex color (e.g., "#FF5F6D").
+       * @param {number} amount - Amount to darken (0.0 to 1.0).
+       * @returns {string} - An rgb() string of the darkened color.
+       */
+      function darkenColor(hex, amount = 0.3) {
+        hex = hex.replace("#", "");
+        if (hex.length === 3) {
+          hex = hex
+            .split("")
+            .map((char) => char + char)
+            .join("");
+        }
+        const num = parseInt(hex, 16);
+        let r = (num >> 16) & 0xff;
+        let g = (num >> 8) & 0xff;
+        let b = num & 0xff;
+        r = Math.floor(r * (1 - amount));
+        g = Math.floor(g * (1 - amount));
+        b = Math.floor(b * (1 - amount));
+        return `rgb(${r}, ${g}, ${b})`;
+      }
+
+      // Get references to DOM elements
+      const carousel = document.getElementById("carousel");
+      const dotsContainer = document.getElementById("carousel-dots");
+      const eventTitleEl = document.getElementById("event-title");
+      const eventDescriptionEl = document.getElementById("event-description");
+      const eventDateEl = document.getElementById("event-date");
+      const eventTimeEl = document.getElementById("event-time");
+      const eventLocationEl = document.getElementById("event-location");
+      const buyButton = document.getElementById("buy-button");
+      const openSideMenuButton = document.getElementById("open-side-menu");
+      const closeSideMenuButton = document.getElementById("close-side-menu");
+      const sideMenu = document.getElementById("side-menu");
+
+      let currentActiveIndex = 0;
+      const cardElements = [];
+
+      // Create event cards and corresponding dot indicators
+      events.forEach((event, index) => {
+        // Create a card element (the “poster”)
+        const card = document.createElement("div");
+        card.className = "event-card";
+        card.dataset.index = index;
+        // Set the card background gradient based on event colors
+        card.style.background = `linear-gradient(135deg, ${event.primaryColor}, ${event.secondaryColor})`;
+        carousel.appendChild(card);
+        cardElements.push(card);
+
+        // Add a click event to the card to select it
+        card.addEventListener("click", () => {
+          updateActiveEvent(index);
+          card.scrollIntoView({ behavior: "smooth", inline: "center" });
+        });
+
+        // Create a dot indicator for this event
+        const dot = document.createElement("span");
+        dot.className = "dot";
+        dot.dataset.index = index;
+        dot.addEventListener("click", () => {
+          // Scroll the corresponding card into view when a dot is clicked
+          card.scrollIntoView({ behavior: "smooth", inline: "center" });
+        });
+        dotsContainer.appendChild(dot);
+      });
+
+      /**
+       * Updates the active event (poster) based on the given index:
+       * - Changes the body background to a darkened gradient from the event colors.
+       * - Updates the overlay text.
+       * - Updates the side menu details.
+       * - Updates the active dot indicator.
+       * - Adds a slight scale effect to the active card.
+       */
+      function updateActiveEvent(index) {
+        if (index < 0 || index >= events.length) return;
+        if (currentActiveIndex === index) return;
+        currentActiveIndex = index;
+        const event = events[index];
+
+        // Update page background using darkened event colors
+        const darkPrimary = darkenColor(event.primaryColor, 0.3);
+        const darkSecondary = darkenColor(event.secondaryColor, 0.3);
+        document.body.style.background = `linear-gradient(135deg, ${darkPrimary}, ${darkSecondary})`;
+
+        // Update the overlay text with event information
+        eventTitleEl.textContent = event.title;
+        eventDescriptionEl.textContent = event.description;
+
+        // Update the side menu with additional event details
+        eventDateEl.textContent = "Date: " + event.date;
+        eventTimeEl.textContent = "Time: " + event.time;
+        eventLocationEl.textContent = "Location: " + event.location;
+        buyButton.onclick = function () {
+          window.open(event.buyUrl, "_blank");
+        };
+
+        // Update dot indicators: remove "active" from all, then set the active one
+        document.querySelectorAll(".dot").forEach((dot) => {
+          dot.classList.remove("active");
+        });
+        const activeDot = document.querySelector(`.dot[data-index="${index}"]`);
+        if (activeDot) {
+          activeDot.classList.add("active");
+        }
+
+        // Add an "active" class to the active card and remove it from others
+        cardElements.forEach((card) => {
+          if (parseInt(card.dataset.index, 10) === index) {
+            card.classList.add("active");
+          } else {
+            card.classList.remove("active");
+          }
+        });
+      }
+
+      /**
+       * Determines which card is closest to the center of the carousel viewport.
+       * When the closest card changes, update the active event.
+       */
+      function updateActiveCard() {
+        const carouselRect = carousel.getBoundingClientRect();
+        const carouselCenter = carouselRect.left + carouselRect.width / 2;
+        let closestCard = null;
+        let minDistance = Infinity;
+        cardElements.forEach((card) => {
+          const rect = card.getBoundingClientRect();
+          const cardCenter = rect.left + rect.width / 2;
+          const distance = Math.abs(carouselCenter - cardCenter);
+          if (distance < minDistance) {
+            minDistance = distance;
+            closestCard = card;
+          }
+        });
+        if (closestCard) {
+          const newIndex = parseInt(closestCard.dataset.index, 10);
+          updateActiveEvent(newIndex);
+        }
+      }
+
+      // Listen for scroll events on the carousel and window resize
+      carousel.addEventListener("scroll", updateActiveCard);
+      window.addEventListener("resize", updateActiveCard);
+
+      // Event listeners for opening/closing the side menu
+      openSideMenuButton.addEventListener("click", () => {
+        sideMenu.classList.add("open");
+      });
+      closeSideMenuButton.addEventListener("click", () => {
+        sideMenu.classList.remove("open");
+      });
+
+      // Initialize the first event immediately so the colors appear on view
+      updateActiveEvent(0);
+      cardElements[0].scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+      });
+    </script>
+  </body>
+</html>
