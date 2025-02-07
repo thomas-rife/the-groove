@@ -4,10 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Event Carousel</title>
-    <!-- Link to external CSS file -->
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <!-- Blurred background that updates with the selected poster -->
+    <div id="background-blur">
+      <div class="black-overlay"></div>
+    </div>
+
     <div id="carousel-container">
       <div id="carousel">
         <!-- Cards will be injected by JavaScript -->
@@ -39,52 +43,18 @@
     </div>
 
     <script>
-      // Sample event data
+      // Sample event data with posterImage properties
       const events = [
         {
-          title: "Live Music Concert",
-          description:
-            "Experience an unforgettable evening with live bands performing your favorite tunes.",
-          primaryColor: "#FF5F6D",
-          secondaryColor: "#FFC371",
+          title: "Phi Tau Beach Party",
+          description: "Get lit and drunk af",
+          posterImage: "poster1.jpg",
           date: "March 15, 2025",
           time: "8:00 PM",
-          location: "Madison Square Garden, New York",
+          location: "745 Elm Ave",
           buyUrl: "https://buytickets.com/event1",
         },
-        {
-          title: "Art Exhibition",
-          description:
-            "Dive into the world of modern art and enjoy breathtaking exhibitions.",
-          primaryColor: "#36D1DC",
-          secondaryColor: "#5B86E5",
-          date: "April 10, 2025",
-          time: "10:00 AM",
-          location: "The Art Gallery, San Francisco",
-          buyUrl: "https://buytickets.com/event2",
-        },
-        {
-          title: "Tech Conference",
-          description:
-            "Join industry leaders and tech enthusiasts for a day of innovation and networking.",
-          primaryColor: "#11998E",
-          secondaryColor: "#38EF7D",
-          date: "May 22, 2025",
-          time: "9:00 AM",
-          location: "Silicon Valley Convention Center",
-          buyUrl: "https://buytickets.com/event3",
-        },
-        {
-          title: "Culinary Workshop",
-          description:
-            "Discover gourmet recipes and learn cooking secrets from renowned chefs.",
-          primaryColor: "#F7971E",
-          secondaryColor: "#FFD200",
-          date: "June 5, 2025",
-          time: "6:00 PM",
-          location: "Culinary Institute, Chicago",
-          buyUrl: "https://buytickets.com/event4",
-        },
+        // Additional events can be added here...
       ];
 
       /**
@@ -123,8 +93,10 @@
       const openSideMenuButton = document.getElementById("open-side-menu");
       const closeSideMenuButton = document.getElementById("close-side-menu");
       const sideMenu = document.getElementById("side-menu");
+      const backgroundBlur = document.getElementById("background-blur");
 
-      let currentActiveIndex = 0;
+      // Initialize active index to -1 so updateActiveEvent(0) will always update
+      let currentActiveIndex = -1;
       const cardElements = [];
 
       // Create event cards and corresponding dot indicators
@@ -133,8 +105,8 @@
         const card = document.createElement("div");
         card.className = "event-card";
         card.dataset.index = index;
-        // Set the card background gradient based on event colors
-        card.style.background = `linear-gradient(135deg, ${event.primaryColor}, ${event.secondaryColor})`;
+        // Set the card background to the poster image
+        card.style.backgroundImage = `url(${event.posterImage})`;
         carousel.appendChild(card);
         cardElements.push(card);
 
@@ -149,7 +121,6 @@
         dot.className = "dot";
         dot.dataset.index = index;
         dot.addEventListener("click", () => {
-          // Scroll the corresponding card into view when a dot is clicked
           card.scrollIntoView({ behavior: "smooth", inline: "center" });
         });
         dotsContainer.appendChild(dot);
@@ -157,7 +128,7 @@
 
       /**
        * Updates the active event (poster) based on the given index:
-       * - Changes the body background to a darkened gradient from the event colors.
+       * - Changes the background to a blurred version of the poster image with a black opaque filter.
        * - Updates the overlay text.
        * - Updates the side menu details.
        * - Updates the active dot indicator.
@@ -169,10 +140,10 @@
         currentActiveIndex = index;
         const event = events[index];
 
-        // Update page background using darkened event colors
-        const darkPrimary = darkenColor(event.primaryColor, 0.3);
-        const darkSecondary = darkenColor(event.secondaryColor, 0.3);
-        document.body.style.background = `linear-gradient(135deg, ${darkPrimary}, ${darkSecondary})`;
+        // Update the background-blur element with the selected poster image
+        if (backgroundBlur) {
+          backgroundBlur.style.backgroundImage = `url(${event.posterImage})`;
+        }
 
         // Update the overlay text with event information
         eventTitleEl.textContent = event.title;
@@ -241,7 +212,7 @@
         sideMenu.classList.remove("open");
       });
 
-      // Initialize the first event immediately so the colors appear on view
+      // Initialize the first event immediately so the details and background are applied
       updateActiveEvent(0);
       cardElements[0].scrollIntoView({
         behavior: "smooth",

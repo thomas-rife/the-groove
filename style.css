@@ -5,6 +5,30 @@
   box-sizing: border-box;
 }
 
+/* Blurred Background and Black Overlay */
+#background-blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  filter: blur(20px);
+  transform: scale(1.1);
+  z-index: -1;
+}
+
+.black-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
+}
+
+/* Body and Container */
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   overflow: hidden;
@@ -46,11 +70,17 @@ body {
   flex: 0 0 auto;
   scroll-snap-align: center;
   width: 300px;
-  height: calc(300px * 16 / 9);
+  /* Using aspect-ratio for a 9:16 poster */
+  aspect-ratio: 10 / 16;
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s;
   position: relative;
+
+  /* Ensure the poster image displays normally */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .event-card.active {
