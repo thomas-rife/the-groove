@@ -34,12 +34,14 @@ body {
   width: 100vw;
 }
 
+/* Carousel Container */
 #carousel-container {
   position: relative;
   height: 100%;
   width: 100%;
 }
 
+/* Carousel */
 #carousel {
   display: flex;
   align-items: center;
@@ -67,33 +69,23 @@ body {
   width: 300px;
   aspect-ratio: 10 / 16;
   border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
   position: relative;
-
-  /* Set up a transition for transform and opacity */
   transition: transform 0.3s ease, opacity 0.3s ease;
 
-  /* Background image styling */
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 
-  /* Default (inactive) state opacity */
   opacity: 0.8;
 }
 
 .event-card.active {
-  /* Scale up the active card */
   transform: scale(1.05);
-
-  /* Fully opaque */
   opacity: 1;
-
-  /* Trigger a fade-in animation on activation */
   animation: fadeIn 0.3s ease;
 }
 
-/* Keyframes for a fade-in effect */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -209,4 +201,56 @@ body {
 
 #buy-button:hover {
   background: rgba(0, 0, 0, 0.8);
+}
+
+/* ---------------------------
+   Mobile-Friendly Adjustments
+---------------------------- */
+@media (max-width: 600px) {
+  /* Change carousel layout */
+  #carousel {
+    padding: 0 calc((100vw - 200px) / 2);
+  }
+
+  /* Smaller event cards */
+  .event-card {
+    width: 200px;
+    aspect-ratio: 10 / 16;
+  }
+
+  /* Move info overlay below the carousel */
+  #carousel-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Remove absolute positioning for details */
+  #info-overlay {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    margin-top: 10px;
+    padding: 10px;
+    /* background: rgba(0, 0, 0, 0.5); */
+    border-radius: 8px;
+    pointer-events: auto;
+    width: 90%;
+    max-width: 400px;
+  }
+
+  /* Adjust text sizes for readability */
+  #info-overlay .event-info h2 {
+    font-size: 1.3rem;
+  }
+
+  #info-overlay .event-info p {
+    font-size: 0.9rem;
+  }
+
+  #info-overlay .event-info button {
+    font-size: 0.9rem;
+    padding: 4px 8px;
+  }
 }

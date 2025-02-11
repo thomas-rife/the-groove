@@ -16,11 +16,11 @@
 
   <body>
     <!-- Header with Profile link (left) and App name (right) -->
-    <header>
+    <!-- <header>
       <div class="app-name">OPUL</div>
       <a href="index.html">Home</a>
       <a href="profile.html">Profile</a>
-    </header>
+    </header> -->
 
     <!-- Blurred background that updates with the selected poster -->
     <div id="background-blur">
@@ -50,6 +50,8 @@
         <button id="close-side-menu">&times;</button>
       </div>
       <div class="side-menu-content">
+        <p id="event-title-side" style="font-weight: bold"></p>
+        <p id="event-description-side"></p>
         <p id="event-date"></p>
         <p id="event-time"></p>
         <p id="event-location"></p>
@@ -58,7 +60,6 @@
     </div>
 
     <script>
-      // Sample event data with posterImage properties
       const events = [
         {
           title: "Phi Tau Beach Party",
@@ -69,7 +70,6 @@
           location: "745 Elm Ave",
           buyUrl: "https://buy.stripe.com/test_9AQeWd7Ot5JS3Li7ss",
         },
-        // Additional events can be added here...
         {
           title: "PKT: Wonderland",
           description: "Brothers only; Live DJS DOMS2DIRTY/DJZAYUH",
@@ -79,14 +79,17 @@
           location: "745 Elm Ave",
           buyUrl: "https://buy.stripe.com/test_9AQeWd7Ot5JS3Li7ss",
         },
+        {
+          title: "Sig Ep: Safari",
+          description: "Brothers only",
+          posterImage: "./images/poster3.JPG",
+          date: "September 16, 2025",
+          time: "1:00 PM",
+          location: "8110 Collegio Dr",
+          buyUrl: "https://buy.stripe.com/test_9AQeWd7Ot5JS3Li7ss",
+        },
       ];
 
-      /**
-       * Utility function that darkens a hex color.
-       * @param {string} hex - A hex color (e.g., "#FF5F6D").
-       * @param {number} amount - Amount to darken (0.0 to 1.0).
-       * @returns {string} - An rgb() string of the darkened color.
-       */
       function darkenColor(hex, amount = 0.3) {
         hex = hex.replace("#", "");
         if (hex.length === 3) {
@@ -105,7 +108,6 @@
         return `rgb(${r}, ${g}, ${b})`;
       }
 
-      // Get references to DOM elements
       const carousel = document.getElementById("carousel");
       const dotsContainer = document.getElementById("carousel-dots");
       const eventTitleEl = document.getElementById("event-title");
@@ -119,11 +121,9 @@
       const sideMenu = document.getElementById("side-menu");
       const backgroundBlur = document.getElementById("background-blur");
 
-      // Initialize active index to -1 so updateActiveEvent(0) will always update
       let currentActiveIndex = -1;
       const cardElements = [];
 
-      // Create event cards and corresponding dot indicators
       events.forEach((event, index) => {
         const card = document.createElement("div");
         card.className = "event-card";
@@ -158,6 +158,10 @@
 
         eventTitleEl.textContent = event.title;
         eventDescriptionEl.textContent = event.description;
+
+        document.getElementById("event-title-side").textContent = event.title;
+        document.getElementById("event-description-side").textContent =
+          event.description;
 
         eventDateEl.textContent = "Date: " + event.date;
         eventTimeEl.textContent = "Time: " + event.time;
