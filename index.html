@@ -2,53 +2,233 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
-    <title>Profile - Opul</title>
-    <!-- Google Fonts for modern typography -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Opul</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="header.css" />
     <link
-       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+
+    <!-- Optional inline styles for the header -->
   </head>
+
   <body>
-    <!-- HEADER -->
-
+    <!-- Header with Profile link (left) and App name (right) -->
     <header>
-        <div class="header-container">
-          <div class="logo">
-            <a href="index.html" class="logo-link">Opul</a>
-          </div>
-          <nav>
-            <a href="index.html">Home</a>
-            <a href="profile.html" class="active">Profile</a>
-          </nav>
-        </div>
-      </header>
-      
+      <div class="app-name">OPUL</div>
+      <a href="index.html">Home</a>
+      <a href="profile.html">Profile</a>
+    </header>
 
-    <!-- MAIN PROFILE SECTION -->
-    <main>
-      <section class="profile-section">
-        <div class="profile-card">
-          <div
-            class="profile-avatar"
-            style="background-image: url('avatar.jpg');"
-          ></div>
-          <h1>John Doe</h1>
-          <p class="username">@johndoe</p>
-          <div class="profile-details">
-            <p><strong>Email:</strong> johndoe@example.com</p>
-            <p>
-              <strong>Bio:</strong> Just an event enthusiast who loves music and parties.
-              Always ready for the next adventure.
-            </p>
-          </div>
+    <!-- Blurred background that updates with the selected poster -->
+    <div id="background-blur">
+      <div class="black-overlay"></div>
+    </div>
+
+    <div id="carousel-container">
+      <div id="carousel">
+        <!-- Cards will be injected by JavaScript -->
+      </div>
+      <div id="info-overlay">
+        <div class="event-info">
+          <h2 id="event-title"></h2>
+          <p id="event-description"></p>
+          <!-- Button to open the side menu -->
+          <button id="open-side-menu">Details</button>
         </div>
-      </section>
-    </main>
+        <div id="carousel-dots">
+          <!-- Dot indicators -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Side menu for event details -->
+    <div id="side-menu">
+      <div class="side-menu-header">
+        <button id="close-side-menu">&times;</button>
+      </div>
+      <div class="side-menu-content">
+        <p id="event-date"></p>
+        <p id="event-time"></p>
+        <p id="event-location"></p>
+        <button id="buy-button">Buy Tickets</button>
+      </div>
+    </div>
+
+    <script>
+      // Sample event data with posterImage properties
+      const events = [
+        {
+          title: "Phi Tau Beach Party",
+          description: "Get lit and drunk af",
+          posterImage: "./images/poster1.JPG",
+          date: "March 15, 2025",
+          time: "8:00 PM",
+          location: "745 Elm Ave",
+          buyUrl: "https://buy.stripe.com/test_9AQeWd7Ot5JS3Li7ss",
+        },
+        // Additional events can be added here...
+        {
+          title: "PKT: Wonderland",
+          description: "Brothers only; Live DJS DOMS2DIRTY/DJZAYUH",
+          posterImage: "./images/wonderland.PNG",
+          date: "March 15, 2025",
+          time: "8:00 PM",
+          location: "745 Elm Ave",
+          buyUrl: "https://buy.stripe.com/test_9AQeWd7Ot5JS3Li7ss",
+        },
+      ];
+
+      /**
+       * Utility function that darkens a hex color.
+       * @param {string} hex - A hex color (e.g., "#FF5F6D").
+       * @param {number} amount - Amount to darken (0.0 to 1.0).
+       * @returns {string} - An rgb() string of the darkened color.
+       */
+      function darkenColor(hex, amount = 0.3) {
+        hex = hex.replace("#", "");
+        if (hex.length === 3) {
+          hex = hex
+            .split("")
+            .map((char) => char + char)
+            .join("");
+        }
+        const num = parseInt(hex, 16);
+        let r = (num >> 16) & 0xff;
+        let g = (num >> 8) & 0xff;
+        let b = num & 0xff;
+        r = Math.floor(r * (1 - amount));
+        g = Math.floor(g * (1 - amount));
+        b = Math.floor(b * (1 - amount));
+        return `rgb(${r}, ${g}, ${b})`;
+      }
+
+      // Get references to DOM elements
+      const carousel = document.getElementById("carousel");
+      const dotsContainer = document.getElementById("carousel-dots");
+      const eventTitleEl = document.getElementById("event-title");
+      const eventDescriptionEl = document.getElementById("event-description");
+      const eventDateEl = document.getElementById("event-date");
+      const eventTimeEl = document.getElementById("event-time");
+      const eventLocationEl = document.getElementById("event-location");
+      const buyButton = document.getElementById("buy-button");
+      const openSideMenuButton = document.getElementById("open-side-menu");
+      const closeSideMenuButton = document.getElementById("close-side-menu");
+      const sideMenu = document.getElementById("side-menu");
+      const backgroundBlur = document.getElementById("background-blur");
+
+      // Initialize active index to -1 so updateActiveEvent(0) will always update
+      let currentActiveIndex = -1;
+      const cardElements = [];
+
+      // Create event cards and corresponding dot indicators
+      events.forEach((event, index) => {
+        const card = document.createElement("div");
+        card.className = "event-card";
+        card.dataset.index = index;
+        card.style.backgroundImage = `url(${event.posterImage})`;
+        carousel.appendChild(card);
+        cardElements.push(card);
+
+        card.addEventListener("click", () => {
+          updateActiveEvent(index);
+          card.scrollIntoView({ behavior: "smooth", inline: "center" });
+        });
+
+        const dot = document.createElement("span");
+        dot.className = "dot";
+        dot.dataset.index = index;
+        dot.addEventListener("click", () => {
+          card.scrollIntoView({ behavior: "smooth", inline: "center" });
+        });
+        dotsContainer.appendChild(dot);
+      });
+
+      function updateActiveEvent(index) {
+        if (index < 0 || index >= events.length) return;
+        if (currentActiveIndex === index) return;
+        currentActiveIndex = index;
+        const event = events[index];
+
+        if (backgroundBlur) {
+          backgroundBlur.style.backgroundImage = `url(${event.posterImage})`;
+        }
+
+        eventTitleEl.textContent = event.title;
+        eventDescriptionEl.textContent = event.description;
+
+        eventDateEl.textContent = "Date: " + event.date;
+        eventTimeEl.textContent = "Time: " + event.time;
+        eventLocationEl.textContent = "Location: " + event.location;
+        buyButton.onclick = function () {
+          window.open(event.buyUrl, "_blank");
+        };
+
+        document.querySelectorAll(".dot").forEach((dot) => {
+          dot.classList.remove("active");
+        });
+        const activeDot = document.querySelector(`.dot[data-index="${index}"]`);
+        if (activeDot) {
+          activeDot.classList.add("active");
+        }
+
+        cardElements.forEach((card) => {
+          if (parseInt(card.dataset.index, 10) === index) {
+            card.classList.add("active");
+          } else {
+            card.classList.remove("active");
+          }
+        });
+      }
+
+      function updateActiveCard() {
+        const carouselRect = carousel.getBoundingClientRect();
+        const carouselCenter = carouselRect.left + carouselRect.width / 2;
+        let closestCard = null;
+        let minDistance = Infinity;
+        cardElements.forEach((card) => {
+          const rect = card.getBoundingClientRect();
+          const cardCenter = rect.left + rect.width / 2;
+          const distance = Math.abs(carouselCenter - cardCenter);
+          if (distance < minDistance) {
+            minDistance = distance;
+            closestCard = card;
+          }
+        });
+        if (closestCard) {
+          const newIndex = parseInt(closestCard.dataset.index, 10);
+          updateActiveEvent(newIndex);
+        }
+      }
+
+      carousel.addEventListener("scroll", updateActiveCard);
+      window.addEventListener("resize", updateActiveCard);
+
+      openSideMenuButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        sideMenu.classList.add("open");
+      });
+      closeSideMenuButton.addEventListener("click", () => {
+        sideMenu.classList.remove("open");
+      });
+
+      document.addEventListener("click", function (event) {
+        if (
+          sideMenu.classList.contains("open") &&
+          !sideMenu.contains(event.target) &&
+          !openSideMenuButton.contains(event.target)
+        ) {
+          sideMenu.classList.remove("open");
+        }
+      });
+
+      updateActiveEvent(0);
+      cardElements[0].scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+      });
+    </script>
   </body>
 </html>

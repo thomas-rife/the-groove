@@ -1,11 +1,9 @@
-/* Global resets */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Blurred Background and Black Overlay */
 #background-blur {
   position: fixed;
   top: 0;
@@ -25,12 +23,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
+  background: rgba(0, 0, 0, 0.5);
 }
 
-/* Body and Container */
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Montserrat", sans-serif;
   overflow: hidden;
   transition: background 0.5s ease;
   height: 100vh;
@@ -43,11 +40,9 @@ body {
   width: 100%;
 }
 
-/* Carousel Styles */
 #carousel {
   display: flex;
-  align-items: center; /* Vertically center the cards */
-  /* Add horizontal padding so that the first and last cards can center */
+  align-items: center;
   padding: 0 calc((100vw - 300px) / 2);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
@@ -70,24 +65,44 @@ body {
   flex: 0 0 auto;
   scroll-snap-align: center;
   width: 300px;
-  /* Using aspect-ratio for a 9:16 poster */
   aspect-ratio: 10 / 16;
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s;
   position: relative;
 
-  /* Ensure the poster image displays normally */
+  /* Set up a transition for transform and opacity */
+  transition: transform 0.3s ease, opacity 0.3s ease;
+
+  /* Background image styling */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+
+  /* Default (inactive) state opacity */
+  opacity: 0.8;
 }
 
 .event-card.active {
+  /* Scale up the active card */
   transform: scale(1.05);
+
+  /* Fully opaque */
+  opacity: 1;
+
+  /* Trigger a fade-in animation on activation */
+  animation: fadeIn 0.3s ease;
 }
 
-/* Info Overlay Styles */
+/* Keyframes for a fade-in effect */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 #info-overlay {
   position: absolute;
   bottom: 30px;
@@ -107,7 +122,6 @@ body {
   font-size: 1rem;
 }
 
-/* Button to open the side menu */
 #info-overlay .event-info button {
   margin-top: 10px;
   padding: 5px 10px;
@@ -140,14 +154,13 @@ body {
   background: #fff;
 }
 
-/* Side Menu Styles */
 #side-menu {
   position: fixed;
   top: 0;
   right: 0;
   width: 300px;
   height: 100%;
-  background: #fff;
+  background-color: rgba(255, 255, 255, 0.9);
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
   transform: translateX(100%);
   transition: transform 0.3s ease;
@@ -155,7 +168,6 @@ body {
   padding: 20px;
 }
 
-/* When .open is added, slide the menu into view */
 #side-menu.open {
   transform: translateX(0);
 }
@@ -186,10 +198,15 @@ body {
   display: block;
   width: 100%;
   padding: 10px;
-  background: #ff5f6d;
+  background: rgba(0, 0, 0, 0.6);
   color: #fff;
   border: none;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#buy-button:hover {
+  background: rgba(0, 0, 0, 0.8);
 }
