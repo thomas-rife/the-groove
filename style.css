@@ -203,6 +203,10 @@ body {
   background: rgba(0, 0, 0, 0.8);
 }
 
+.favicon {
+  transform: (3.5);
+}
+
 /* ---------------------------
    Mobile-Friendly Adjustments
 ---------------------------- */
@@ -233,7 +237,6 @@ body {
     transform: none;
     margin-top: 10px;
     padding: 10px;
-    /* background: rgba(0, 0, 0, 0.5); */
     border-radius: 8px;
     pointer-events: auto;
     width: 90%;
@@ -244,13 +247,26 @@ body {
   #info-overlay .event-info h2 {
     font-size: 1.3rem;
   }
-
   #info-overlay .event-info p {
     font-size: 0.9rem;
   }
-
   #info-overlay .event-info button {
     font-size: 0.9rem;
     padding: 4px 8px;
+  }
+
+  /* --- Mobile-only Side Menu Adjustments --- */
+  #side-menu {
+    display: flex;
+    flex-direction: column;
+    /* Keep existing styles for position, width, etc. */
+  }
+  /* Ensure the header remains at the top */
+  #side-menu .side-menu-header {
+    /* No changes needed here unless you want to adjust padding */
+  }
+  /* Push the content (text and buy button) to the bottom */
+  #side-menu .side-menu-content {
+    margin-top: auto;
   }
 }

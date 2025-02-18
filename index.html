@@ -3,9 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Opul</title>
+    <title>The Groove</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="header.css" />
+    <link
+      rel="icon"
+      href="TheGrooveLogoTransparent.png"
+      type="image/png"
+      class="favicon"
+    />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
       rel="stylesheet"
@@ -16,11 +23,12 @@
 
   <body>
     <!-- Header with Profile link (left) and App name (right) -->
-    <!-- <header>
-      <div class="app-name">OPUL</div>
+    <header>
+      <img src="TheGrooveLogoTransparent.png" class="logo" />
+      <div class="app-name">THE GROOVE</div>
       <a href="index.html">Home</a>
-      <a href="profile.html">Profile</a>
-    </header> -->
+      <!-- <a href="profile.html">Profile</a> -->
+    </header>
 
     <!-- Blurred background that updates with the selected poster -->
     <div id="background-blur">
@@ -61,6 +69,16 @@
 
     <script>
       const events = [
+        {
+          title: "Groove Takeover",
+          description:
+            "The Groove is coming back to Little Friend 🪩 Set times coming next week, along with our Spring Schedule dropping on Saturday. See you all on the dance floor 💿 💿 🕺🏼 🕺🏼",
+          posterImage: "./images/TheGrooveEvent1.png",
+          date: "February 20, 2025",
+          time: "10:00 PM",
+          location: "The Little Friend Bar",
+          buyURL: "https://buy.stripe.com/dR600s7nge4n6kMdQS",
+        },
         {
           title: "Phi Tau Beach Party",
           description: "Get lit and drunk af",

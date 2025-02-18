@@ -27,3 +27,11 @@ header .app-name {
 body {
   padding-top: 70px;
 }
+
+header .logo {
+  max-height: 50px; /* The space allocated remains the same */
+  width: auto;
+  display: block;
+  transform: scale(3); /* Scales the logo 50% bigger */
+  transform-origin: center; /* Adjust the origin as needed */
+}
