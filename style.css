@@ -66,7 +66,7 @@ body {
 .event-card {
   flex: 0 0 auto;
   scroll-snap-align: center;
-  width: 300px;
+  width: 500px;
   aspect-ratio: 10 / 16;
   border-radius: 20px;
   overflow: hidden;
@@ -218,7 +218,7 @@ body {
 
   /* Smaller event cards */
   .event-card {
-    width: 200px;
+    width: 300px;
     aspect-ratio: 10 / 16;
   }
 
