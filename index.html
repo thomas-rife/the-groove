@@ -17,12 +17,9 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
       rel="stylesheet"
     />
-
-    <!-- Optional inline styles for the header -->
   </head>
 
   <body>
-    <!-- Header with Profile link (left) and App name (right) -->
     <header>
       <img src="TheGrooveLogoTransparent.png" class="logo" />
       <div class="app-name">THE GROOVE</div>
@@ -30,29 +27,22 @@
       <!-- <a href="profile.html">Profile</a> -->
     </header>
 
-    <!-- Blurred background that updates with the selected poster -->
     <div id="background-blur">
       <div class="black-overlay"></div>
     </div>
 
     <div id="carousel-container">
-      <div id="carousel">
-        <!-- Cards will be injected by JavaScript -->
-      </div>
+      <div id="carousel"></div>
       <div id="info-overlay">
         <div class="event-info">
           <h2 id="event-title"></h2>
           <p id="event-description"></p>
-          <!-- Button to open the side menu -->
-          <button id="open-side-menu">Details</button>
+          <button id="open-side-menu">Buy Tickets</button>
         </div>
-        <div id="carousel-dots">
-          <!-- Dot indicators -->
-        </div>
+        <div id="carousel-dots"></div>
       </div>
     </div>
 
-    <!-- Side menu for event details -->
     <div id="side-menu">
       <div class="side-menu-header">
         <button id="close-side-menu">&times;</button>
@@ -66,6 +56,8 @@
         <button id="buy-button">Buy Tickets</button>
       </div>
     </div>
+
+    <!-- important to note that PNG's will cause an error for poster image type! -->
 
     <script>
       const events = [
