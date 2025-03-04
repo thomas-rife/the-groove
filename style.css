@@ -251,6 +251,7 @@ body {
   #side-menu {
     display: flex;
     flex-direction: column;
+    padding-bottom: 20px;
     /* Keep existing styles for position, width, etc. */
   }
   /* Ensure the header remains at the top */
@@ -260,5 +261,6 @@ body {
   /* Push the content (text and buy button) to the bottom */
   #side-menu .side-menu-content {
     margin-top: auto;
+    padding-bottom: 40px; /* Adds some space at the bottom */
   }
 }
