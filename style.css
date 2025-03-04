@@ -197,54 +197,58 @@ body {
   transform: (3.5);
 }
 
-/* ---------------------------
-   Mobile-Friendly Adjustments
----------------------------- */
+/* MOBILE STYLING */
 @media (max-width: 600px) {
-  /* Change carousel layout */
-  #carousel {
-    padding: 0 calc((100vw - 250px) / 2);
-    gap: 50px;
-    scroll-padding: 0 calc((100vw - 250px) / 2); /* Ensures cards snap centered */
+  /* Container for carousel remains the same */
+  #carousel-container {
+    position: relative;
+    height: calc(100vh - 60px); /* Adjust based on your header height */
+    overscroll-behavior: none; /* Prevents bounce/scroll chaining */
   }
 
-  /* Smaller event cards */
+  /* Absolutely center the carousel in the container */
+  #carousel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    padding: 0 calc((100vw - 250px) / 2);
+    gap: 60px;
+    scroll-padding: 0 calc((100vw - 250px) / 2);
+    scroll-snap-type: x mandatory;
+    overscroll-behavior: none; /* Prevents bounce/scroll chaining */
+  }
+
   .event-card {
     width: 250px;
     aspect-ratio: 10 / 16;
+    scroll-snap-align: center;
   }
 
-  /* Move info overlay below the carousel */
-  #carousel-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  /* Fix the info overlay to the bottom of the viewport */
+  /* Other carousel and card styles remain unchanged */
 
-  /* Remove absolute positioning for details */
+  /* Anchor the info overlay at the bottom right above the search bar */
   #info-overlay {
-    position: relative;
-    bottom: auto;
-    left: auto;
-    transform: none;
-    margin-top: 10px;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    width: 90%;
+    max-width: 400px;
     padding: 10px;
     border-radius: 8px;
     pointer-events: auto;
-    width: 90%;
-    max-width: 400px;
+    overscroll-behavior: none; /* Prevents bounce/scroll chaining */
   }
 
-  /* Adjust text sizes for readability */
   #info-overlay .event-info h2 {
-    font-size: 1.3rem;
+    font-size: clamp(1.5rem, 4vw, 2rem);
   }
+
   #info-overlay .event-info p {
-    font-size: 0.9rem;
-  }
-  #info-overlay .event-info button {
-    font-size: 0.9rem;
-    padding: 4px 8px;
+    font-size: clamp(0.9rem, 2vw, 1.6rem);
   }
 
   /* --- Mobile-only Side Menu Adjustments --- */
@@ -252,15 +256,20 @@ body {
     display: flex;
     flex-direction: column;
     padding-bottom: 20px;
-    /* Keep existing styles for position, width, etc. */
   }
-  /* Ensure the header remains at the top */
-  #side-menu .side-menu-header {
-    /* No changes needed here unless you want to adjust padding */
-  }
-  /* Push the content (text and buy button) to the bottom */
   #side-menu .side-menu-content {
     margin-top: auto;
-    padding-bottom: 40px; /* Adds some space at the bottom */
+    padding-bottom: 40px;
+  }
+}
+
+/* Smaller phone styling */
+
+@media (max-width: 410px) {
+  #event-title {
+    font-size: 10px;
+  }
+  #event-description {
+    font-size: clamp(0.4rem, 1vw, 0.6rem);
   }
 }
