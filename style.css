@@ -203,8 +203,9 @@ body {
 @media (max-width: 600px) {
   /* Change carousel layout */
   #carousel {
-    padding: 0 calc((100vw - 200px) / 2);
+    padding: 0 calc((100vw - 250px) / 2);
     gap: 50px;
+    scroll-padding: 0 calc((100vw - 250px) / 2); /* Ensures cards snap centered */
   }
 
   /* Smaller event cards */

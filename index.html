@@ -221,10 +221,9 @@
         }
       });
 
-      updateActiveEvent(0);
-      cardElements[0].scrollIntoView({
-        behavior: "smooth",
-        inline: "center",
+      window.addEventListener("load", () => {
+        updateActiveEvent(0);
+        cardElements[0].scrollIntoView({ behavior: "auto", inline: "center" });
       });
     </script>
   </body>
