@@ -51,7 +51,7 @@ body {
   -webkit-overflow-scrolling: touch;
   height: 100%;
   width: 100%;
-  gap: 30px;
+  gap: 80px;
 }
 
 #carousel::-webkit-scrollbar {
@@ -81,9 +81,8 @@ body {
 }
 
 .event-card.active {
-  transform: scale(1.05);
+  transform: scale(1.2);
   opacity: 1;
-  animation: fadeIn 0.3s ease;
 }
 
 @keyframes fadeIn {
@@ -214,11 +213,12 @@ body {
   /* Change carousel layout */
   #carousel {
     padding: 0 calc((100vw - 200px) / 2);
+    gap: 50px;
   }
 
   /* Smaller event cards */
   .event-card {
-    width: 300px;
+    width: 250px;
     aspect-ratio: 10 / 16;
   }
 
