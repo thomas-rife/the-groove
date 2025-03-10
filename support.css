@@ -29,14 +29,14 @@ header {
 
 header a {
   text-decoration: none;
-  color: #999;
+  color: #ccc; /* Lighter text color */
   font-size: 1rem;
 }
 
 header .app-name {
   font-weight: bold;
   font-size: 1.5rem;
-  color: #999;
+  color: #ccc; /* Lighter text color */
 }
 
 body {
@@ -44,11 +44,11 @@ body {
 }
 
 header .logo {
-  max-height: 50px; /* The space allocated remains the same */
+  max-height: 50px;
   width: auto;
   display: block;
-  transform: scale(3); /* Scales the logo 50% bigger */
-  transform-origin: center; /* Adjust the origin as needed */
+  transform: scale(3);
+  transform-origin: center;
 }
 
 /* Support section styling */
@@ -80,4 +80,24 @@ header .logo {
 
 .support-section a:hover {
   text-decoration: underline;
+}
+
+/* Social media icon styling */
+.social-media {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+}
+
+/* Mobile responsiveness */
+@media screen and (max-width: 600px) {
+  .support-section {
+    width: 90%;
+    margin: 20px auto;
+    padding: 15px;
+  }
 }
