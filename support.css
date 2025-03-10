@@ -1,0 +1,83 @@
+/* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Global body styling */
+body {
+  font-family: "Montserrat", sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Header Styles */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #222;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+header a {
+  text-decoration: none;
+  color: #999;
+  font-size: 1rem;
+}
+
+header .app-name {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #999;
+}
+
+body {
+  padding-top: 70px;
+}
+
+header .logo {
+  max-height: 50px; /* The space allocated remains the same */
+  width: auto;
+  display: block;
+  transform: scale(3); /* Scales the logo 50% bigger */
+  transform-origin: center; /* Adjust the origin as needed */
+}
+
+/* Support section styling */
+.support-section {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.support-section h1 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.support-section p {
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+.support-section a {
+  color: #333;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.support-section a:hover {
+  text-decoration: underline;
+}
