@@ -93,11 +93,26 @@ header .logo {
   height: 40px;
 }
 
-.privacy-link {
-  display: block;
+.privacy {
   text-align: center;
-  margin-top: 20px;
+  margin: 20px 0;
+}
+
+.privacy-link {
+  display: inline-block;
   font-size: 0.9rem;
+  color: #333; /* Primary link color */
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 1px solid #333;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.privacy-link:hover,
+.privacy-link:focus {
+  background-color: #333;
+  color: #fff;
 }
 
 .support-section ul {
