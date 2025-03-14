@@ -93,6 +93,24 @@ header .logo {
   height: 40px;
 }
 
+.privacy-link {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
+}
+
+.support-section ul {
+  display: block;
+  margin-left: 20px; /* adjust as needed */
+  padding-left: 20px; /* ensures the bullet points are indented */
+  list-style-type: disc;
+}
+
+.support-section li {
+  margin-bottom: 8px; /* optional: adds space between items */
+}
+
 /* Mobile responsiveness */
 @media screen and (max-width: 600px) {
   .support-section {
