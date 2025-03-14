@@ -91,13 +91,13 @@ body {
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
-  color: #fff;
+  color: #faf9f6;
   pointer-events: none;
 }
 
 #info-overlay .event-info h2 {
   font-size: 1.5rem;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 #info-overlay .event-info p {
@@ -106,11 +106,11 @@ body {
 
 #info-overlay .event-info button {
   margin-top: 10px;
-  padding: 5px 10px;
+  padding: 5px 15px;
   font-size: 14px;
   cursor: pointer;
   background: rgba(0, 0, 0, 0.3);
-  color: #fff;
+  color: #faf9f6;
   border: none;
   border-radius: 5px;
   pointer-events: auto;
@@ -120,7 +120,7 @@ body {
   display: flex;
   justify-content: center;
   gap: 8px;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .dot {
