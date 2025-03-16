@@ -138,6 +138,8 @@ body {
 
 #side-menu {
   position: fixed;
+  display: flex;
+  flex-direction: column;
   top: 0;
   right: 0;
   width: 300px;
@@ -195,6 +197,14 @@ body {
 
 .favicon {
   transform: (3.5);
+}
+
+.stripebuybutton {
+  padding-top: 20px;
+  flex-direction: column;
+  display: flex;
+
+  align-items: center;
 }
 
 /* MOBILE STYLING */
