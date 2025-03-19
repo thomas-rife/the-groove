@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About The Groove</title>
+    <link rel="stylesheet" href="about.css" />
+    <link rel="stylesheet" href="header.css" />
+    <link
+      rel="icon"
+      href="TheGrooveLogoTransparent.png"
+      type="image/png"
+      class="favicon"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-pap0f43D1Y2K3icrAulH9i0z2LrQjX2e1OrX+MfbG1d7QYk4Yyh4b5yQ6ZkU/A6n+eZ9PSg8mKjMYUjvLvZp1g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <header>
+      <img src="TheGrooveLogoTransparent.png" class="logo" alt="Logo" />
+      <div class="app-name">THE GROOVE</div>
+      <!-- Hamburger icon always visible -->
+      <div class="menu-toggle" id="menu-toggle">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+      <!-- Navigation menu hidden by default -->
+      <nav class="nav-menu" id="nav-menu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="support.html">Support</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <!-- About Section -->
+      <section class="about">
+        <h1>About The Groove</h1>
+        <p>
+          At The Groove, we’re redefining the clubbing scene in Los Angeles. We
+          host events featuring local artists, creating a space where music,
+          community, and self-expression thrive. Our mission is to break the
+          stigma surrounding L.A. nightlife by making our events accessible—most
+          are free, and when ticketed, we keep prices as affordable as possible.
+        </p>
+        <p>
+          We believe in fostering a judgment-free environment where friends can
+          come together, dance, and truly enjoy the moment. With events twice a
+          month and surprise pop-ups along the way, there’s always something
+          happening.
+        </p>
+        <p>
+          We are always looking for new ideas and new people to join our team or
+          roster. Feel free to email us or shoot us a message on Instagram.
+        </p>
+        <p>
+          Follow us on our socials and check out our website to stay updated on
+          upcoming events. See you on the dance floor!
+        </p>
+      </section>
+
+      <!-- Contact & Socials Section -->
+      <section class="contact">
+        <h2>Contact & Socials</h2>
+        <ul>
+          <li>
+            <a
+              href="https://www.instagram.com/thegrooveevents/"
+              target="_blank"
+            >
+              <img
+                src="instagram-icon.png"
+                alt="Instagram"
+                class="social-icon"
+              />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.linkedin.com/company/the-groove-events/?viewAsMember=true"
+              target="_blank"
+            >
+              <img src="linkedin.png" alt="LinkedIn" class="linkedin-icon" />
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <!-- New Events Section -->
+      <section class="events">
+        <h2>La Boheme 3/14</h2>
+        <!-- Placeholder image for the most recent event -->
+        <img src="laboheme.heic" alt="La Boheme Event" class="event-image" />
+        <h3>Past Events</h3>
+          <!-- Sample images for past events -->
+          <img
+            src="past-event1.png"
+            alt="Past Event 1"
+            class="event-image"
+          />
+          <img
+            src="past-event2.png"
+            alt="Past Event 2"
+            class="event-image"
+          />
+          <img
+            src="past-event3.png"
+            alt="Past Event 3"
+            class="event-image"
+          />
+        </div>
+      </section>
+    </main>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const menuToggle = document.getElementById("menu-toggle");
+        const navMenu = document.getElementById("nav-menu");
+
+        // Toggle the nav menu when the hamburger is clicked
+        menuToggle.addEventListener("click", function (event) {
+          event.stopPropagation();
+          navMenu.classList.toggle("active");
+        });
+
+        // Close the menu if clicking anywhere outside the hamburger and menu
+        document.addEventListener("click", function () {
+          if (navMenu.classList.contains("active")) {
+            navMenu.classList.remove("active");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

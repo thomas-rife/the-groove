@@ -1,3 +1,10 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 /* Header Styles */
 header {
   display: flex;
@@ -10,28 +17,79 @@ header {
   left: 0;
   right: 0;
   z-index: 1000;
+  backdrop-filter: blur(5px);
 }
 
-header a {
-  text-decoration: none;
-  color: #333;
-  font-size: 1rem;
+/* Logo */
+header .logo {
+  max-height: 50px;
+  width: auto;
+  transform: scale(1.5);
+  transform-origin: center;
 }
 
+/* App Name */
 header .app-name {
   font-weight: bold;
   font-size: 1.5rem;
   color: #333;
 }
 
-body {
-  padding-top: 70px;
+/* Hamburger Menu – always visible */
+.menu-toggle {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 10px;
 }
 
-header .logo {
-  max-height: 50px; /* The space allocated remains the same */
-  width: auto;
-  display: block;
-  transform: scale(3); /* Scales the logo 50% bigger */
-  transform-origin: center; /* Adjust the origin as needed */
+.bar {
+  width: 30px;
+  height: 3px;
+  background: #333;
+  margin: 5px 0;
+  transition: 0.3s;
+}
+
+/* Navigation Menu (Popup style) */
+.nav-menu {
+  position: absolute;
+  top: calc(100% + 10px); /* 10px below the header */
+  right: 2rem; /* Aligns the menu with the hamburger toggle */
+  background: rgba(255, 255, 255, 0.6);
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: auto; /* Adjusts to the content */
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none; /* Prevent interaction when hidden */
+}
+
+/* Display the menu when active */
+.nav-menu.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.nav-menu ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0;
+}
+
+.nav-menu ul li a {
+  text-decoration: none;
+  color: #333;
+  padding: 8px 12px;
+  transition: background 0.3s;
+}
+
+.nav-menu ul li a:hover {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
 }

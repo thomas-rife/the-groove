@@ -21,10 +21,22 @@
 
   <body>
     <header>
-      <img src="TheGrooveLogoTransparent.png" class="logo" />
+      <img src="TheGrooveLogoTransparent.png" class="logo" alt="Logo" />
       <div class="app-name">THE GROOVE</div>
-      <a href="support.html">Support</a>
-      <!-- <a href="profile.html">Profile</a> -->
+      <!-- Hamburger icon always visible -->
+      <div class="menu-toggle" id="menu-toggle">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+      <!-- Navigation menu hidden by default -->
+      <nav class="nav-menu" id="nav-menu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="support.html">Support</a></li>
+        </ul>
+      </nav>
     </header>
 
     <div id="background-blur">
@@ -221,6 +233,24 @@
       window.addEventListener("load", () => {
         updateActiveEvent(0);
         cardElements[0].scrollIntoView({ behavior: "auto", inline: "center" });
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const menuToggle = document.getElementById("menu-toggle");
+        const navMenu = document.getElementById("nav-menu");
+
+        // Toggle the nav menu when the hamburger is clicked
+        menuToggle.addEventListener("click", function (event) {
+          event.stopPropagation();
+          navMenu.classList.toggle("active");
+        });
+
+        // Close the menu if clicking anywhere outside the hamburger and menu
+        document.addEventListener("click", function () {
+          if (navMenu.classList.contains("active")) {
+            navMenu.classList.remove("active");
+          }
+        });
       });
     </script>
   </body>
